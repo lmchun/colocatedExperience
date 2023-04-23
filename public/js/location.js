@@ -12,7 +12,8 @@
 		        long = currentPosition.coords.longitude;
  
 		        var mapElem = document.getElementById('map');
-		    	// mapElem.innerHTML = '<img src="http://maps.googleapis.com/maps/api/staticmap?markers=' + lat + ',' + long + '&zoom=20&size=300x300&sensor=false" />';					
+				const googleMap = "https://maps.googleapis.com/maps/api/staticmap?center=" +  lat + ',' + long +"&zoom=18&size=400x400&markers=color:red%7Clabel:DoyerSt%7C"+  lat + ',' + long +"&key=AIzaSyCAirwcBgqDzPj6DlLDNzWvF-DPlcjsXfE"
+		    	mapElem.innerHTML = `<img src="${googleMap}" />`					
 				}
 
 				function errorCallback(e) {
