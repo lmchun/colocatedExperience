@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bulma.min.css">
+    
     <!-- UIkit CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/css/uikit.min.css" />
 
@@ -16,18 +18,77 @@
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/js/uikit-icons.min.js"></script>
     <title>Colocated Experience</title>
   <script src="js/location.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script type="text/javascript">
+    var socket = io.connect();
+    socket.on('connect', function() {
+      console.log("Connected");
+      // document.getElementById("username").innerHTML = socket.id;
+      //you are now connected to the server
+      // item.textContent = data;
+    });
+
+    // Receive from any event
+    socket.on('userLocated', function (data) {
+      console.log(data);
+      var messages = document.getElementById('messages');
+      var item = document.createElement('li');
+          item.textContent = data;
+          // item.innerHTML = `${data.username}:${data.message}`;
+          messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+
+    });
+    
+    var sendmessage = function(message) {
+        var userdata = {
+          'username' :  document.getElementById('username').value,
+          'message' : message
+          
+        };
+        // 'image' : savedImage
+        // 'avatar' : "img/cat-avatar.png",
+        // 'color' : "pink"	
+
+      //send the updated username
+      console.log("chatmessage: " + userdata.username);
+      // console.log("chatmessage: " + );
+      // socket.emit('chatmessage', message);
+      socket.emit('chatmessage', userdata);
+    };
+
+    
+
+  </script>	
   </head>
   <body>
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content box">
+        <span class="delete close">&times;</span>
+        <div class="content">
+        <p>Welcome to the colocated thingy.
+          Let's check where you are and we can start!</p>
+        </div>
+     <div class="modalBtnContainer">	  
+      <button class="button" onclick="modal.style.display = 'none';">Let's Go</button>
+    </div> 
+  
+      </div>
+    
+    </div>
+    <!--                          -->
     <div class="content">
       <!-- overlay code -->
-      <!-- <div id="overlay"> 
+      <div id="overlay"> 
         <div id="popup">
-        <button id="close-button">X</button>
-         <div class="div" data-typeofEffect>  
-             
+        <button class="delete close" id="close-button"></button>
+         <div class="content">  
+            hi
         </div>
             </div>
-        </div> -->
+        </div>
 <!-- tooltip hint html -->
         <!-- 
         <p class="hintAR tooltip">What is AR?<img class="questionAR" src="assets/question_icon.svg">
@@ -37,11 +98,22 @@
     <div class="welcomeContainer">
       <img src="https://picsum.photos/200/300">
     </div>
-    <p>Your coordinates:</p>
-    <span data-location></span>
+    <div class="box">
+      <p>Your coordinates: <span data-location></span></p>
+      <p id="help" class="button is-light">TEST POPUP</p>
+      <div class="box">
+        <img id="user1" class="hidden" src="assets/face2.svg">
+        <img id="user2" class="hidden" src="assets/face2.svg">
+      </div>
+    </div>
+    <div class="div">
+      <button class="button is-light" onclick="showonMap()">Show your Location</button>
+      <button class="button is-light" onclick="logLocation()">Send Location</button>
+    </div>
+   
     <div id="map"></div>
 
-    <button onclick="logLocation()">Send Location</button>
+   
   </div>
   </body>
 </html>
