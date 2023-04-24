@@ -3,8 +3,9 @@ body {
 }
 
 .content{
-    width: 70%;
+    width: 100%;
     margin: 0 auto; 
+    padding: 0.3rem;
 }
 
 .welcomeContainer{
@@ -146,4 +147,11 @@ visibility: hidden;
 }
 .shown{
     visibility: visible;
+}
+
+.users{
+    display: flex !important;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  
 }

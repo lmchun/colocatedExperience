@@ -4,3 +4,5 @@ cert1.pem
 privkey1.pem
 node_modules/
 xrs.json
+package.json
+package-lock.json
