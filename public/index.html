@@ -11,18 +11,23 @@
     <link rel="stylesheet" href="css/bulma.min.css">
     
     <!-- UIkit CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
-<!-- UIkit JS -->
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/js/uikit.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.15/dist/js/uikit-icons.min.js"></script>
     <title>Colocated Experience</title>
-  <script src="js/location.js" defer></script>
-  <script src="js/main.js" defer></script>
-  <script type="text/javascript">
+    <script src="js/location.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script type="text/javascript">
     var socket = io.connect();
     socket.on('connect', function() {
       console.log("Connected");
+      const user1 = document.querySelector("#user1");
+      console.log("user1 joined")
+      user1.classList.add("shown")
+        // user1.style.classList.remove("hidden")
       // document.getElementById("username").innerHTML = socket.id;
       //you are now connected to the server
       // item.textContent = data;
@@ -31,20 +36,17 @@
     // Receive from any event
     socket.on('userLocated', function (data) {
       console.log(data);
-      var messages = document.getElementById('messages');
-      var item = document.createElement('li');
-          item.textContent = data;
-          // item.innerHTML = `${data.username}:${data.message}`;
+      let messages = document.getElementById('messages');
+      let item = document.createElement('p');
+          // item.textContent = data;
+          item.innerHTML = `:${data.message}`;
           messages.appendChild(item);
-      window.scrollTo(0, document.body.scrollHeight);
-
     });
     
     var sendmessage = function(message) {
         var userdata = {
           'username' :  document.getElementById('username').value,
           'message' : message
-          
         };
         // 'image' : savedImage
         // 'avatar' : "img/cat-avatar.png",
@@ -56,9 +58,6 @@
       // socket.emit('chatmessage', message);
       socket.emit('chatmessage', userdata);
     };
-
-    
-
   </script>	
   </head>
   <body>
@@ -102,9 +101,15 @@
       <p>Your coordinates: <span data-location></span></p>
       <p id="help" class="button is-light">TEST POPUP</p>
       <div class="box">
-        <img id="user1" class="hidden" src="assets/face2.svg">
-        <img id="user2" class="hidden" src="assets/face2.svg">
-      </div>
+        <div id="user1" class="hidden">
+          <img src="assets/face2.svg">
+          <p id="userName1">User 1</p> 
+        </div>
+        
+        <div id="user2" class="hidden">
+          <img src="assets/face2.svg">
+          <p id="userName2">User 2</p> 
+        </div>      </div>
     </div>
     <div class="div">
       <button class="button is-light" onclick="showonMap()">Show your Location</button>
