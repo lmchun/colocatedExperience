@@ -3,3 +3,4 @@ server.js
 cert1.pem
 privkey1.pem
 node_modules/
+xrs.json
