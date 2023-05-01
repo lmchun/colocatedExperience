@@ -59,16 +59,16 @@
       socket.emit('userLocated', userdata);
     };
 
-    socket.on('direction', function(data){
-      let found = false;
-      for (let i = 0; i <users.length; i++){
-        if(users[i].data == data.id){
-          users[i] = data;
-          found = true;
-          break;
-        }
-      }
-		});
+    // socket.on('direction', function(data){
+    //   let found = false;
+    //   for (let i = 0; i <users.length; i++){
+    //     if(users[i].data == data.id){
+    //       users[i] = data;
+    //       found = true;
+    //       break;
+    //     }
+    //   }
+		// });
 		
     //on update show 
     for (var i = 0; i < users.length; i++){
