@@ -36,7 +36,7 @@
     });
 
     // Receive from any event
-    socket.on('userLocated', function (data) {
+    socket.on('sendUserLocationToClients', function (data) {
       console.log(data);
       // let messages = document.getElementById('messages');
       let item = document.createElement('p');
@@ -56,7 +56,7 @@
       console.log("userLocated: " + userdata.username);
       // console.log("chatmessage: " + );
       // socket.emit('chatmessage', message);
-      socket.emit('userLocated', userdata);
+      socket.emit('sendUserLocationToServer', userdata);
     };
 
     // socket.on('direction', function(data){
@@ -71,13 +71,13 @@
 		// });
 		
     //on update show 
-    for (var i = 0; i < users.length; i++){
-      ellipse(users[i].alpha, users[i].beta, users[i].gamma);
-    }
+    // for (var i = 0; i < users.length; i++){
+    //   ellipse(users[i].alpha, users[i].beta, users[i].gamma);
+    // }
 
-		var users = [];
+		// var users = [];
     //send user's location and name
-    let sendLocation = function(userLocated) {
+    let sendLocation = function() {
       let userdata = {
           'username' :  document.getElementById('username').value,
           'long' : long,  
@@ -89,12 +89,19 @@
         // 'color' : "pink"	
 
       //send the updated username
-      console.log(userdata.username + ":" + userdata.long + userdata.lat);
-      socket.emit('userLocated', userdata);
+      console.log(userdata.username + ":" + userdata.long + " " + userdata.lat);
+      socket.emit('sendUserLocationToServer', userdata);
     };
 
 
     let userName1 = document.querySelector("#userName1")
+
+    function loginPressed() {
+      console.log("loginpressed")
+      modal.style.display = 'none'; 
+      document.getElementById('userName1').innerText = document.getElementById('username').value;
+      sendLocation();
+    }
   </script>	
   </head>
   <body>
@@ -122,7 +129,7 @@
 
           </form>
           <div class="modalBtnContainer">	  
-            <button class="button" onclick="modal.style.display = 'none'; document.getElementById('userName1').innerText = document.getElementById('username').value;">Let's Go</button>
+            <button class="button" onclick="loginPressed()">Let's Go</button>
           </div> 
         </div>
       </div>
@@ -137,6 +144,11 @@
         </div>
             </div>
         </div> 
+        <!-- <div id="accessOverlay">
+          <div id="accessPopup">
+
+          </div>
+        </div> -->
       <!-- tooltip hint html -->
         <!-- 
         <p class="hintAR tooltip">What is AR?<img class="questionAR" src="assets/question_icon.svg">
@@ -144,7 +156,7 @@
       </p> -->
     <h1 class="title"">Colocated Experience</h1>
     <div class="welcomeContainer">
-      <img src="https://picsum.photos/200/300">
+      <img src="assets/icon.png">
     </div>
     <div class="box">
       <!-- <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FE9PL1tsDFF75EnxJUjHAlZ%2FKnown-Source---Prototype%3Fpage-id%3D1%253A146%26type%3Ddesign%26node-id%3D250-4317%26viewport%3D462%252C121%252C0.03%26scaling%3Dcontain%26starting-point-node-id%3D151%253A6875" allowfullscreen></iframe> -->
@@ -159,8 +171,13 @@
         <div id="user2" class="hidden">
           <img src="assets/face2.svg">
           <p id="userName2">User 2</p> 
-        </div>      
+        </div>  
+        <div class="box">
+          <div id="accessPopup">
+          </div>
+        </div>    
       </div>
+     
     </div>
     <div class="div">
       <button class="button is-light" onclick="showonMap()">Show your Location</button>

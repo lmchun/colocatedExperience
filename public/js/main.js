@@ -22,7 +22,6 @@ if (event.target == modal) {
  modal.style.display = "none";
 }
 }     
-            
 const overlay = document.querySelector('#overlay');
 function showOverlay() {
   overlay.style.display = 'block';

@@ -155,3 +155,26 @@ visibility: hidden;
     flex-wrap: wrap;
   
 }
+
+
+#accessOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 2;
+}
+
+/* #accessPopup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 1rem 1rem;
+  width: 80%;
+  border-radius: 1rem;
+} */
