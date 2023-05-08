@@ -2,7 +2,7 @@
             let lat = "0",
 		        long = "0";
 			const accessContent = document.querySelector("#accessPopup");
-
+			// const
 			if (navigator.geolocation) {
 				//alert("Allowed");
 
@@ -49,7 +49,10 @@
 		  
 		  if (latitudeMatchesPattern && longitudeMatchesPattern) {
 			console.log("The latitude starts with 40.69 and longitude starts with -73.98");
-			accessContent.innerHTML = `<p>Access Granted</p>`
+			accessContent.innerHTML = `<p>Access Granted</p>
+			<button class="button is-light" id="state" onclick="scene1()">Begin your journey</button>
+
+			`
 			console.log("access granted")
 		  } else {
 			console.log("The latitude or longitude does not match the desired patterns");
